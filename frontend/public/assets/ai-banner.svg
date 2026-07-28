@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">Medical AI illustration</title>
+  <desc id="desc">A calm medical dashboard illustration with a doctor and digital interface.</desc>
+  <rect width="640" height="360" rx="28" fill="#f3f9f8"/>
+  <circle cx="500" cy="96" r="54" fill="#dff4f1"/>
+  <rect x="90" y="74" width="220" height="170" rx="24" fill="#ffffff" stroke="#dbeeea" stroke-width="2"/>
+  <rect x="120" y="102" width="92" height="12" rx="6" fill="#2f7d7a"/>
+  <rect x="120" y="128" width="140" height="12" rx="6" fill="#5eb7a8"/>
+  <rect x="120" y="154" width="118" height="12" rx="6" fill="#9ad8cb"/>
+  <rect x="120" y="186" width="96" height="10" rx="5" fill="#cfe9e2"/>
+  <circle cx="430" cy="210" r="72" fill="#ffffff" stroke="#dbeeea" stroke-width="2"/>
+  <path d="M430 150c25 0 46 20 46 45v13h-92v-13c0-25 21-45 46-45z" fill="#2f7d7a"/>
+  <circle cx="430" cy="198" r="28" fill="#f6c58b"/>
+  <path d="M404 226c10 12 26 19 42 19 16 0 32-7 42-19" stroke="#2f7d7a" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <rect x="338" y="240" width="184" height="40" rx="20" fill="#2f7d7a"/>
+  <circle cx="388" cy="260" r="8" fill="#ffffff"/>
+  <circle cx="454" cy="260" r="8" fill="#ffffff"/>
+  <path d="M376 292c28 18 78 18 106 0" stroke="#5eb7a8" stroke-width="12" stroke-linecap="round" fill="none"/>
+</svg>
