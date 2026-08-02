@@ -9,7 +9,12 @@ export const apiFetch = (path, init = {}) => {
 
 export const parseJson = async (response) => {
   const text = await response.text();
-  return text ? JSON.parse(text) : null;
+  if (!text) return {};
+  try {
+    return JSON.parse(text);
+  } catch (err) {
+    return {};
+  }
 };
 
 export const apiPostJson = (path, body, init = {}) => {
