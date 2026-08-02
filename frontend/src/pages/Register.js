@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { HospitalMark } from "../components/ui";
+import { apiFetch, parseJson } from "../services/api";
 
 const Register = ({ onLogin }) => {
   const navigate = useNavigate();
@@ -23,12 +24,12 @@ const Register = ({ onLogin }) => {
     }
     setLoading(true);
     try {
-      const res = await fetch("/api/auth/register", {
+      const res = await apiFetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-      const data = await res.json();
+      const data = await parseJson(res);
       if (!res.ok) {
         setError(data.message || "Registration failed");
         return;

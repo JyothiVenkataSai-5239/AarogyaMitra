@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Badge, Button, EmptyState, Loader, statusTone } from "./ui";
 import { getSocket } from "../services/socket";
+import { apiFetch, parseJson } from "../services/api";
 
 // Using Tailwind utility classes instead of inline style objects
 
@@ -14,11 +15,11 @@ const PatientQueueView = ({ appointmentId, token }) => {
   const fetchAppointment = async () => {
     try {
       setLoading(true);
-      const response = await fetch("/api/appointments", {
+      const response = await apiFetch("/api/appointments", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const data = await response.json();
-      const apt = data.find((item) => item._id === appointmentId);
+      const data = await parseJson(response);
+      const apt = Array.isArray(data) ? data.find((item) => item._id === appointmentId) : null;
       if (apt) {
         setAppointment(apt);
         if (apt.notificationSent) {
@@ -58,7 +59,7 @@ const PatientQueueView = ({ appointmentId, token }) => {
 
   const handleCheckIn = async (isLate = false) => {
     try {
-      const response = await fetch(`/api/appointments/${appointmentId}/check-in`, {
+      const response = await apiFetch(`/api/appointments/${appointmentId}/check-in`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

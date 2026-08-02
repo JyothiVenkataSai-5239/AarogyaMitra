@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { HospitalMark } from "../components/ui";
+import { apiFetch, parseJson } from "../services/api";
 
 // Redesigned Login page (UI only) — preserves all existing functionality.
 const Login = ({ onLogin }) => {
@@ -18,13 +19,13 @@ const Login = ({ onLogin }) => {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/auth/login", {
+      const response = await apiFetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json();
+      const data = await parseJson(response);
 
       if (!response.ok) {
         setError(data.message || "Login failed");

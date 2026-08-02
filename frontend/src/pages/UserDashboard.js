@@ -3,6 +3,7 @@ import AppointmentCard from "../components/AppointmentCard";
 import PatientQueueView from "../components/PatientQueueView";
 import Toast from "../components/Toast";
 import { Badge, Button, Card, EmptyState, Loader, statusTone } from "../components/ui";
+import { apiFetch, parseJson } from "../services/api";
 
 const HOSPITAL_NAME = "Vijaya Multi Speciality Hospital";
 
@@ -21,8 +22,8 @@ const UserDashboard = ({ user, token }) => {
   const fetchAppointments = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/appointments", { headers: { Authorization: `Bearer ${token}` } });
-      const data = await res.json();
+      const res = await apiFetch("/api/appointments", { headers: { Authorization: `Bearer ${token}` } });
+      const data = await parseJson(res);
       setAppointments(Array.isArray(data) ? data : []);
       setError("");
     } catch (err) {
@@ -44,12 +45,12 @@ const UserDashboard = ({ user, token }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch('/api/appointments', {
+      const res = await apiFetch('/api/appointments', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ ...formData, hospital: HOSPITAL_NAME }),
       });
-      const data = await res.json();
+      const data = await parseJson(res);
       if (!res.ok) throw new Error(data.message || 'Booking failed');
       setBookingResult(data);
       setShowConfirmation(true);
