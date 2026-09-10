@@ -38,7 +38,7 @@ const getDoctorType = (disease) => {
 };
 
 // POST book appointment (protected route)
-router.post('/book', authMiddleware, async (req, res) => {
+router.post(['/book', '/appointments'], authMiddleware, async (req, res) => {
   const { ageGroup, disease, visitType } = req.body;
   const userId = req.user.id;
 

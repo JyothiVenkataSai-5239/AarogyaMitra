@@ -52,7 +52,7 @@ const UserDashboard = ({ user, token }) => {
       });
       const data = await parseJson(res);
       if (!res.ok) throw new Error(data.message || 'Booking failed');
-      setBookingResult(data);
+      setBookingResult(data.appointment || data);
       setShowConfirmation(true);
       await fetchAppointments();
     } catch (err) {
