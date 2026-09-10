@@ -165,8 +165,6 @@ const AdminDashboard = ({ user, token, onLogout }) => {
     }
   };
 
-  const renderHospitalSelector = () => null;
-
   const renderStats = () => (
     <div className="admin-stats-grid">
       <div className="admin-stat-card">

@@ -1,24 +1,92 @@
+# Smart Healthcare Appointment and Queue System
 # AarogyaMitra
 ### Smart Healthcare Appointment & Real-Time Queue Management System
 
+A MERN stack semester project for managing hospital appointments, live queues, patient check-in, walk-in patients, and admin queue operations.
 ---
 
+## Main Features
 ## Overview
 
+- Patient registration and login
+- Admin registration protected by an invite code
+- Hospital listing and appointment booking
+- Automatic doctor type selection based on disease
+- Priority-based queue ordering for emergencies and senior patients
+- Live patient queue view with queue number, wait time, and check-in
+- Admin dashboard with hospital filter, appointments table, and live queue actions
+- Walk-in appointment creation by admin
+- Queue recalculation after completion, cancellation, no-show, delay, and early finish
+- Realtime queue updates using Socket.IO
+- Rule-based wait time and no-show risk prediction
 In traditional healthcare environments, outpatient departments (OPDs) and clinics frequently suffer from unpredictable wait times, physical crowding, and lack of visibility into queue progression. When emergencies occur, appointments run over time, or patients fail to appear, schedules derail quickly. Patients face anxiety and long waiting room delays without clear information, while healthcare staff lack dynamic tools to adjust queue order, accommodate walk-in patients, and handle schedule disruptions.
 
+## Tech Stack
 **AarogyaMitra** solves this challenge through a full-stack MERN solution engineered for real-time queue orchestration. The system pairs priority-based scheduling algorithms with bi-directional WebSocket synchronization via Socket.IO. When appointments are created, checked into, delayed, or completed, queue positions and expected start times are dynamically recalculated across the system and instantly pushed to patient and administrator interfaces.
 
+- Frontend: React, React Router, Socket.IO Client
+- Backend: Node.js, Express.js, Socket.IO
+- Database: MongoDB with Mongoose
+- Auth: JWT and bcrypt password hashing
 ---
 
+## Folder Structure
 ## Problem Statement
 
+```text
+backend/
+  server.js
+  package.json
+  seed.js
+  check-hospitals.js
+  .env (local - not checked in)
+  models/
+    Appointment.js
+    Hospital.js
+    User.js
+  routes/
+    api.js
+    auth.js
+  services/
+    predictionService.js
+    queueService.js
+    realtimeService.js
+  middleware/
+    auth.js
+  utils/
+    scheduling.js
 Conventional hospital scheduling systems treat appointment slots as static calendar blocks:
 - **Zero Real-Time Visibility:** Patients receive a static appointment time, only to wait hours when earlier consultations run long or emergency cases take precedence.
 - **Static First-Come, First-Served Ordering:** Traditional queues fail to systematically differentiate between routine follow-ups and high-acuity conditions or vulnerable demographic groups (e.g., senior citizens).
 - **Administrative Overhead During Disruptions:** Doctor delays, walk-in emergency arrivals, early completions, and patient no-shows force reception desks to manually reorganize schedules.
 - **Information Asymmetry:** Patients have no mechanism to track their position in line remotely, leading to crowded waiting rooms and unnecessary physical congestion.
 
+frontend/
+  package.json
+  public/
+    index.html
+    assets/
+  src/
+    index.js
+    App.js
+    App.css
+    components/
+      AppointmentCard.js
+      PatientQueueView.js
+      QueueDashboard.js
+      Navbar.js
+      ProtectedRoute.js
+      Toast.js
+    pages/
+      AdminDashboard.js
+      UserDashboard.js
+      Login.js
+      Register.js
+    services/
+      socket.js
+    styles/
+      Dashboard.css
+      Auth.css
 ---
 
 ## Solution
@@ -98,6 +166,7 @@ AarogyaMitra introduces an automated, responsive queue orchestration platform:
 └─────────────────────────────────────────────────────────────┘
 ```
 
+## Backend Setup
 ### Architectural Responsibilities
 1. **Presentation Layer (React):** Manages responsive UI state, handles authenticated session persistence via `sessionStorage`, and maintains open WebSocket connections to subscribe to queue lifecycle events.
 2. **API & Security Layer (Express & Middleware):** Validates payloads, verifies signed JWT tokens, enforces role-based authorization (`user` vs `admin`), and exposes clean REST endpoints.
@@ -105,6 +174,11 @@ AarogyaMitra introduces an automated, responsive queue orchestration platform:
 4. **Real-Time Gateway (Socket.IO):** Manages connection lifecycle and routes event packets to global channels or targeted user rooms (`user:<userId>`).
 5. **Data Persistence Layer (MongoDB / Mongoose):** Houses schema models with relationship references, status constraints, and indexing for fast query retrieval.
 
+```bash
+cd backend
+npm install
+npm run seed
+npm start
 ---
 
 ## Technology Stack
@@ -167,6 +241,7 @@ Appointment Created (Online or Walk-in)
     Real-Time Push to Admin & Patients via Socket.IO
 ```
 
+Backend runs on:
 ### 1. Priority Scoring Formula
 
 Priority calculation evaluates three primary vectors:
@@ -305,6 +380,7 @@ AarogyaMitra utilizes Socket.IO to maintain persistent, bidirectional connection
 ## Project Structure
 
 ```text
+http://localhost:5000
 AarogyaMitra/
 ├── backend/
 │   ├── middleware/
@@ -361,8 +437,10 @@ AarogyaMitra/
 └── README.md                       # Comprehensive project documentation
 ```
 
+Required backend `.env` values:
 ---
 
+```text
 ## Environment Variables
 
 ### Backend Configuration (`backend/.env`)
@@ -375,10 +453,20 @@ MONGODB_URI=mongodb://localhost:27017/smart-appointment
 
 # Server Port
 PORT=5000
+JWT_SECRET=your-secret
+ADMIN_INVITE_CODE=smart-admin-2026
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASSWORD=your-app-password
+```
 
+## Frontend Setup
 # JSON Web Token Secret Key
 JWT_SECRET=your_secure_jwt_secret_key
 
+```bash
+cd frontend
+npm install
+npm start
 # Admin Registration Security Passcode
 ADMIN_INVITE_CODE=your_admin_invite_code
 
@@ -387,8 +475,11 @@ EMAIL_USER=your_email@gmail.com
 EMAIL_PASSWORD=your_app_specific_password
 ```
 
+Frontend runs on:
 ### Frontend Configuration (`frontend/.env`)
 
+```text
+http://localhost:3000
 Create a `.env` file in the `frontend/` directory:
 
 ```env
@@ -396,12 +487,36 @@ Create a `.env` file in the `frontend/` directory:
 REACT_APP_API_URL=http://localhost:5000
 ```
 
+## Demo Flow (updated for single-hospital mode)
 > **Security Note:** Never commit `.env` files containing real production secrets, connection strings, or mailer credentials to source control.
 
+1. Register a patient account and book an appointment (booking now targets Vijaya Hospital by default).
+2. Click `View Live Queue` from the patient appointment list.
+3. Register or log in as admin using the admin invite code (see below).
+4. Open the Admin Dashboard — there is no hospital selector; the system manages a single hospital: Vijaya Hospital.
+5. Use the live queue panel to apply doctor delay, recalculate queue, mark no-show, or complete appointments.
+6. Return to the patient dashboard and confirm that queue number and wait time update in real time.
 ---
 
+## Important API Endpoints (current)
 ## Installation & Setup
 
+```text
+POST /api/auth/register
+POST /api/auth/login
+POST /api/book                # Book appointment (user)
+GET  /api/appointments        # User's appointments
+GET  /api/admin/appointments  # Admin: all appointments
+PATCH /api/admin/appointments/:id
+GET  /api/admin/queue         # Admin: live queue (single-hospital mode)
+POST /api/admin/walk-in
+POST /api/admin/appointments/:id/no-show
+POST /api/admin/appointments/:id/complete
+POST /api/admin/queue/delay
+POST /api/admin/queue/recalculate
+POST /api/predict/no-show
+POST /api/predict/waiting-time
+POST /api/recommend/reschedule/:appointmentId
 ### Prerequisites
 - **Node.js:** v16.x or later (v18.x or v20.x recommended)
 - **npm:** v8.x or later
@@ -413,25 +528,35 @@ git clone https://github.com/JyothiVenkataSai-5239/AarogyaMitra.git
 cd AarogyaMitra
 ```
 
+Note: Hospital-specific route parameters were removed from admin queue endpoints as the application now operates in single-hospital mode (Vijaya Hospital). The `Hospital` model is retained in the codebase for future re-enablement of multi-hospital support.
 ### 2. Backend Setup
 ```bash
 cd backend
 npm install
 ```
 
+---
 Configure your environment variables by creating `backend/.env` using the template above.
 
+## Single-Hospital Refactor — Vijaya Hospital (what changed)
 Seed the database with default hospital metadata and test accounts:
 ```bash
 npm run seed
 ```
 
+This repository was refactored to operate in single-hospital mode. Key changes applied in this refactor:
 Start the backend API server:
 ```bash
 npm start
 ```
 The backend will start and listen on `http://localhost:5000`.
 
+- Default hospital: **Vijaya Hospital**. Users are not asked to choose a hospital; all appointments, queues, and doctors belong to Vijaya Hospital.
+- Backend seed updated to create a single hospital record: `backend/seed.js` now seeds `Vijaya Hospital`.
+- Frontend booking UI no longer shows a hospital select — `frontend/src/pages/UserDashboard.js` now displays a read-only `Vijaya Hospital` and sends `hospitalName: "Vijaya Hospital"` when booking.
+- Appointment confirmation and admin lists display `Vijaya Hospital`: `frontend/src/components/AppointmentCard.js`, `frontend/src/pages/AdminDashboard.js`.
+- Queue dashboard header updated to reference Vijaya Hospital: `frontend/src/components/QueueDashboard.js`.
+- Global UI restyle applied (modern AI-inspired theme): `frontend/src/styles/Dashboard.css` updated (colors, fonts, buttons, spacing).
 ### 3. Frontend Setup
 In a separate terminal:
 ```bash
@@ -439,8 +564,16 @@ cd frontend
 npm install
 ```
 
+Files modified during the refactor (non-exhaustive):
+- `backend/seed.js`
+- `frontend/src/pages/UserDashboard.js`
+- `frontend/src/pages/AdminDashboard.js`
+- `frontend/src/components/AppointmentCard.js`
+- `frontend/src/components/QueueDashboard.js`
+- `frontend/src/styles/Dashboard.css`
 Configure your environment variables by creating `frontend/.env` using the template above.
 
+If you want further cleanup (e.g., remove the `Hospital` model entirely, remove hospital-related CSS classes, or remove endpoints that are no longer used), I can perform those changes next while preserving the ability to reintroduce multi-hospital support later.
 Start the React development server:
 ```bash
 npm start
@@ -449,11 +582,16 @@ The frontend will compile and open automatically on `http://localhost:3000`.
 
 ---
 
+## Admin Invite Code
 ## Running Locally & Demo Flow
 
+To register an admin account the application uses an invite code. The seed and `.env` example include:
 ### Pre-Seeded Demonstration Accounts
 When `npm run seed` is executed, the following accounts are initialized:
 
+```
+ADMIN_INVITE_CODE=smart-admin-2026
+```
 - **Hospital Administrator:**
   - Email: `admin@hospital.com`
   - Password: `admin123`
@@ -462,6 +600,7 @@ When `npm run seed` is executed, the following accounts are initialized:
   - Password: `patient123`
 - **Admin Invite Code:** As configured in `ADMIN_INVITE_CODE` in `backend/.env`.
 
+Use that code on the registration page when selecting role `admin`.
 ### Step-by-Step Verification Walkthrough
 1. **Patient Booking:**
    - Log in with `patient@gmail.com` / `patient123`.
@@ -484,12 +623,20 @@ When `npm run seed` is executed, the following accounts are initialized:
    - From the admin queue, mark an appointment as **Done** or **No-Show**.
    - Notice the queue re-indexes automatically, advancing remaining patients forward.
 
+## Queue Logic
 ---
 
+Appointments are ordered by priority first and booking time second.
 ## Deployment
 
+- Emergency visits get the highest priority.
+- Senior patients get a priority boost.
+- Follow-up visits receive a lower priority.
+- Consultation time changes by visit type and doctor type.
+- Queue number, expected time, estimated start time, and wait range are recalculated whenever the queue changes.
 AarogyaMitra is engineered to run seamlessly across modern cloud hosting providers:
 
+## Verification
 - **Frontend Deployment (Vercel / Netlify):**
   - Build Command: `npm run build`
   - Output Directory: `build`
@@ -500,6 +647,7 @@ AarogyaMitra is engineered to run seamlessly across modern cloud hosting provide
 - **Database Deployment (MongoDB Atlas):**
   - Managed cloud replica set with network access permissions configured for the backend server.
 
+The frontend production build completes successfully:
 ---
 
 ## Testing & Verification
@@ -512,6 +660,8 @@ cd frontend
 npm run build
 ```
 Compiles and optimizes production static assets into `frontend/build`.
+
+Backend JavaScript syntax was checked with:
 
 ### Backend Syntax Verification
 ```bash

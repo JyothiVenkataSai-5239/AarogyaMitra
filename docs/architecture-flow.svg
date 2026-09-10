@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 460" width="100%" height="100%" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="clientGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#818cf8" />
+    </linearGradient>
+    <linearGradient id="apiGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#818cf8" />
+      <stop offset="100%" stop-color="#c084fc" />
+    </linearGradient>
+    <linearGradient id="serviceGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#38bdf8" />
+    </linearGradient>
+    <linearGradient id="dbGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#f87171" />
+    </linearGradient>
+    <filter id="shadow" x="-4%" y="-4%" width="108%" height="112%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.35" />
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#94a3b8" />
+    </marker>
+    <marker id="arrow-down" viewBox="0 0 10 10" refX="5" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 1 0 L 5 10 L 9 0 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrow-up" viewBox="0 0 10 10" refX="5" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 1 10 L 5 0 L 9 10 z" fill="#818cf8" />
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="920" height="460" rx="16" fill="url(#bgGrad)" />
+  <rect x="1" y="1" width="918" height="458" rx="15" fill="none" stroke="#334155" stroke-width="1.5" />
+
+  <!-- Title Header -->
+  <text x="460" y="38" text-anchor="middle" fill="#f8fafc" font-size="18" font-weight="700" letter-spacing="0.05em">AAROGYAMITRA · SYSTEM ARCHITECTURE</text>
+  <text x="460" y="56" text-anchor="middle" fill="#94a3b8" font-size="12">End-to-End Tiered Data &amp; Event Flow</text>
+
+  <!-- ================= TIER 1: CLIENT ================= -->
+  <g filter="url(#shadow)">
+    <rect x="40" y="75" width="840" height="70" rx="12" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" />
+    <rect x="40" y="75" width="840" height="24" rx="12" fill="url(#clientGrad)" opacity="0.15" />
+    <text x="55" y="92" fill="#38bdf8" font-size="11" font-weight="700" letter-spacing="0.08em">PRESENTATION LAYER · REACT SPA</text>
+    
+    <!-- Sub-cards -->
+    <rect x="70" y="102" width="220" height="32" rx="6" fill="#0f172a" stroke="#334155" />
+    <text x="180" y="122" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="600">Patient Dashboard</text>
+
+    <rect x="350" y="102" width="220" height="32" rx="6" fill="#0f172a" stroke="#334155" />
+    <text x="460" y="122" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="600">Live Queue &amp; Check-In</text>
+
+    <rect x="630" y="102" width="220" height="32" rx="6" fill="#0f172a" stroke="#334155" />
+    <text x="740" y="122" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="600">Admin Operations Console</text>
+  </g>
+
+  <!-- Connectors: Client to API -->
+  <path d="M 260 145 L 260 178" fill="none" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-down)" />
+  <text x="268" y="165" fill="#38bdf8" font-size="10" font-weight="600">HTTP REST (JWT)</text>
+
+  <path d="M 660 178 L 660 145" fill="none" stroke="#818cf8" stroke-width="2" marker-end="url(#arrow-up)" stroke-dasharray="4 3" />
+  <text x="668" y="165" fill="#818cf8" font-size="10" font-weight="600">WebSockets (Socket.IO)</text>
+
+  <!-- ================= TIER 2: API GATEWAY & ROUTING ================= -->
+  <g filter="url(#shadow)">
+    <rect x="40" y="180" width="840" height="70" rx="12" fill="#1e293b" stroke="#818cf8" stroke-width="1.5" />
+    <rect x="40" y="180" width="840" height="24" rx="12" fill="url(#apiGrad)" opacity="0.15" />
+    <text x="55" y="197" fill="#818cf8" font-size="11" font-weight="700" letter-spacing="0.08em">API GATEWAY &amp; MIDDLEWARE · EXPRESS.JS</text>
+
+    <!-- Sub-cards -->
+    <rect x="70" y="207" width="220" height="32" rx="6" fill="#0f172a" stroke="#334155" />
+    <text x="180" y="227" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="600">JWT &amp; Admin Middleware</text>
+
+    <rect x="350" y="207" width="220" height="32" rx="6" fill="#0f172a" stroke="#334155" />
+    <text x="460" y="227" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="600">REST Endpoints (/api/*)</text>
+
+    <rect x="630" y="207" width="220" height="32" rx="6" fill="#0f172a" stroke="#334155" />
+    <text x="740" y="227" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="600">Socket.IO Rooms Gateway</text>
+  </g>
+
+  <!-- Connectors: API to Services -->
+  <path d="M 460 250 L 460 282" fill="none" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- ================= TIER 3: DOMAIN SERVICES ================= -->
+  <g filter="url(#shadow)">
+    <rect x="40" y="285" width="840" height="75" rx="12" fill="#1e293b" stroke="#34d399" stroke-width="1.5" />
+    <rect x="40" y="285" width="840" height="24" rx="12" fill="url(#serviceGrad)" opacity="0.15" />
+    <text x="55" y="302" fill="#34d399" font-size="11" font-weight="700" letter-spacing="0.08em">CORE DOMAIN &amp; BUSINESS LOGIC SERVICES</text>
+
+    <!-- Sub-cards -->
+    <rect x="60" y="312" width="180" height="36" rx="6" fill="#0f172a" stroke="#334155" />
+    <text x="150" y="327" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="600">Queue Service</text>
+    <text x="150" y="341" text-anchor="middle" fill="#94a3b8" font-size="9">Recalculation &amp; Delays</text>
+
+    <rect x="260" y="312" width="180" height="36" rx="6" fill="#0f172a" stroke="#334155" />
+    <text x="350" y="327" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="600">Scheduling Engine</text>
+    <text x="350" y="341" text-anchor="middle" fill="#94a3b8" font-size="9">Priority &amp; Consult Time</text>
+
+    <rect x="460" y="312" width="180" height="36" rx="6" fill="#0f172a" stroke="#334155" />
+    <text x="550" y="327" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="600">Prediction Service</text>
+    <text x="550" y="341" text-anchor="middle" fill="#94a3b8" font-size="9">No-Show Risk &amp; Wait Est.</text>
+
+    <rect x="660" y="312" width="200" height="36" rx="6" fill="#0f172a" stroke="#334155" />
+    <text x="760" y="327" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="600">Realtime Service</text>
+    <text x="760" y="341" text-anchor="middle" fill="#94a3b8" font-size="9">Event Broadcaster</text>
+  </g>
+
+  <!-- Connectors: Services to DB -->
+  <path d="M 460 360 L 460 388" fill="none" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- ================= TIER 4: DATABASE ================= -->
+  <g filter="url(#shadow)">
+    <rect x="40" y="390" width="840" height="52" rx="10" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" />
+    <text x="180" y="421" text-anchor="middle" fill="#fbbf24" font-size="13" font-weight="700">MongoDB / Atlas</text>
+
+    <rect x="330" y="401" width="160" height="30" rx="6" fill="#0f172a" stroke="#334155" />
+    <text x="410" y="420" text-anchor="middle" fill="#cbd5e1" font-size="11">Users Collection</text>
+
+    <rect x="510" y="401" width="180" height="30" rx="6" fill="#0f172a" stroke="#334155" />
+    <text x="600" y="420" text-anchor="middle" fill="#cbd5e1" font-size="11">Appointments Collection</text>
+
+    <rect x="710" y="401" width="150" height="30" rx="6" fill="#0f172a" stroke="#334155" />
+    <text x="785" y="420" text-anchor="middle" fill="#cbd5e1" font-size="11">Hospitals Collection</text>
+  </g>
+</svg>
